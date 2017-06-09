@@ -6,7 +6,7 @@ export default class TaskList extends React.Component {
     var tasks = this.props.data.map((task) => {
       return (
         <Task key={task.id} id={task.id}
-          content={task.content} status={task.status}>
+          content={task.content} status={task.status} onTaskDelete={this.props.onTaskDelete}>
         </Task>
       );
     });
