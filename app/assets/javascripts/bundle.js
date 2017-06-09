@@ -9569,7 +9569,7 @@ var TaskApp = function (_React$Component) {
     value: function loadTaskFromServer() {
       var _this2 = this;
 
-      _superagent2.default.get(this.grops.url).accept('application/json').end(function (err, res) {
+      _superagent2.default.get(this.props.url).accept('application/json').end(function (err, res) {
         if (err || !res.ok) {
           console.error(_this2.props.url, status, err.toString());
         } else {
@@ -9593,13 +9593,12 @@ var TaskApp = function (_React$Component) {
         }
       });
     }
-
-    // componentDidMount(){
-    //   this.loadTaskFormServer();
-    //   setInterval(this.loadTaskFromServer.bind(this)),
-    //   this.props.pollInterval);
-    // }
-
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.loadTaskFromServer();
+      setInterval(this.loadTaskFromServer.bind(this), this.props.pollInterval);
+    }
   }, {
     key: "render",
     value: function render() {

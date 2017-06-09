@@ -14,7 +14,7 @@ export default class TaskApp extends React.Component {
 
   loadTaskFromServer() {
     request
-      .get(this.grops.url)
+      .get(this.props.url)
       .accept('application/json')
       .end((err, res) => {
         if (err || !res.ok) {
@@ -43,11 +43,11 @@ export default class TaskApp extends React.Component {
       });
   }
 
-  // componentDidMount(){
-  //   this.loadTaskFormServer();
-  //   setInterval(this.loadTaskFromServer.bind(this)),
-  //   this.props.pollInterval);
-  // }
+  componentDidMount(){
+    this.loadTaskFromServer();
+    setInterval(this.loadTaskFromServer.bind(this),
+    this.props.pollInterval);
+  }
 
   render() {
     return (
