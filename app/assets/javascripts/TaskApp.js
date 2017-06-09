@@ -84,7 +84,6 @@ export default class TaskApp extends React.Component {
             </tr>
             </thead>
             <TaskList
-              // data={this.state.data} onTaskDelete={this.taskDelete.bind(this)}
               data={this.state.data} onTaskDelete={this.taskDelete.bind(this)}
             />
           </table>

@@ -9679,9 +9679,8 @@ var TaskApp = function (_React$Component) {
               _react2.default.createElement("th", { colSpan: "3" })
             )
           ),
-          _react2.default.createElement(_TaskList2.default
-          // data={this.state.data} onTaskDelete={this.taskDelete.bind(this)}
-          , { data: this.state.data, onTaskDelete: this.taskDelete.bind(this)
+          _react2.default.createElement(_TaskList2.default, {
+            data: this.state.data, onTaskDelete: this.taskDelete.bind(this)
           })
         )
       );
