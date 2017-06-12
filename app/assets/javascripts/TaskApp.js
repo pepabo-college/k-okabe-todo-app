@@ -6,7 +6,6 @@ import request from 'superagent'
 export default class TaskApp extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       data: []
     };
@@ -49,7 +48,20 @@ export default class TaskApp extends React.Component {
     this.props.pollInterval);
   }
 
-  // taskUpdate
+  taskUpdate(task) {
+    request
+      .patch(this.props.url + '/' + task.task.id)
+      .accept('application/json')
+      .send(task)
+      .end((err, res) => {
+        if (err || !res.ok) {
+          console.error(this.props.url, status, err.toString());
+        }
+        else {
+          this.setState({data: res.body});
+        }
+      });
+  }
 
   // taskDelete
   taskDelete(task) {
@@ -72,7 +84,7 @@ export default class TaskApp extends React.Component {
 
   render() {
     return (
-      <div className="TaskApp">
+      <div className="taskApp">
         <TaskForm
         onTaskSubmit={this.handleTaskSubmit.bind(this)} />
           <table>
@@ -84,7 +96,9 @@ export default class TaskApp extends React.Component {
             </tr>
             </thead>
             <TaskList
-              data={this.state.data} onTaskDelete={this.taskDelete.bind(this)}
+              data={this.state.data}
+              onTaskDelete={this.taskDelete.bind(this)}
+              onTaskUpdate={this.taskUpdate.bind(this)}
             />
           </table>
       </div>
