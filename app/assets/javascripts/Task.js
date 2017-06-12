@@ -17,7 +17,7 @@ export default class Task extends React.Component {
   }
 
   //stateによってどっちを出すか分岐させる
-  handleDubleClick(e) {
+  handleDoubleClick(e) {
     e.preventDefault();
     this.setState({isEditable:true});
   }
@@ -27,15 +27,16 @@ export default class Task extends React.Component {
   render() {
     return (
       <tr key={this.props.id}>
-        if (this.state.isEditable) {
+        {(() => {
+          return this.state.isEditable ?
           <td>
-            <input type="text" defaultValue={this.props.content}></input>
-          </td>
-        } else {
-          <td onDubleClick = {this.handleDubleClick.bind(this)} >
+            <input type="text" defaultValue={this.props.content} onBlur={this.handleUpdate.bind(this)}>
+            </input>
+          </td> :
+          <td onDoubleClick = {this.handleDoubleClick.bind(this)} >
             {this.props.content}
-          </td>
-        }
+          </td>;
+        })()}
         <td>
           <select defaultValue={this.props.status} onChange={this.handleUpdate.bind(this)}>
             <option value="todo" key="todo">todo</option>
