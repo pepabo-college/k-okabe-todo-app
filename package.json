@@ -8,6 +8,7 @@
     "superagent": "^3.5.2"
   },
   "devDependencies": {
+    "ava": "^0.19.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.2",
@@ -27,7 +28,17 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.js --colors",
-    "watch": "webpack --config webpack.config.js -w --colors"
+    "watch": "webpack --config webpack.config.js -w --colors",
+    "test": "ava __tests__/**/*.test.js"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  },
+  "babel": {
+    "presets": ["react", "env"]
   },
   "false": {}
 }
