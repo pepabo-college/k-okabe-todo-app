@@ -9,6 +9,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve('./app/assets/javascripts')
   },
+  devtool: 'cheap-eval-source-map',
   module: {
     rules: [
       {
@@ -20,6 +21,10 @@ module.exports = {
             presets: ['react','env'],
           }
         }
+      },
+      {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
       },
       {
         test: /\.png$/i,
