@@ -57,9 +57,6 @@ export default class TaskApp extends React.Component {
         if (err || !res.ok) {
           console.error(this.props.url, status, err.toString());
         }
-        else {
-          this.setState({data: res.body});
-        }
       });
   }
 
