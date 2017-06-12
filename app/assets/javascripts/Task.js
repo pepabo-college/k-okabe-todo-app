@@ -1,6 +1,10 @@
 import React from "react";
 
 export default class Task extends React.Component {
+  constructor(){
+    super();
+    this.state = ({isEditable:false});
+  }
   // Todo削除
   handleDelete(e){
     e.preventDefault();
@@ -11,12 +15,27 @@ export default class Task extends React.Component {
     e.preventDefault();
     this.props.onTaskUpdate({task: {id: this.props.id, status: e.target.value}});
   }
+
+  //stateによってどっちを出すか分岐させる
+  handleDubleClick(e) {
+    e.preventDefault();
+    this.setState({isEditable:true});
+  }
+  //コンテンツを表示するメソッド
+  //更新用のFormが出るメソッド
+
   render() {
     return (
       <tr key={this.props.id}>
-        <td>
-          {this.props.content}
-        </td>
+        if (this.state.isEditable) {
+          <td>
+            <input type="text" defaultValue={this.props.content}></input>
+          </td>
+        } else {
+          <td onDubleClick = {this.handleDubleClick.bind(this)} >
+            {this.props.content}
+          </td>
+        }
         <td>
           <select defaultValue={this.props.status} onChange={this.handleUpdate.bind(this)}>
             <option value="todo" key="todo">todo</option>
