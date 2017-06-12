@@ -1,5 +1,8 @@
 'use strict';
-const path = require('path');
+const path = require('path'),
+  ExtractTextPlugin = require("extract-text-webpack-plugin"),
+  OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
+  cssnano = require('cssnano');
 
 const webpack = require('webpack');
 
@@ -23,8 +26,15 @@ module.exports = {
         }
       },
       {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader']
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+              {
+                loader: 'css-loader',
+              }
+            ],
+        })
       },
       {
           test: /\.svg$/,
@@ -56,5 +66,14 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin('../stylesheets/bootstrap.css'),
+    new OptimizeCssAssetsPlugin({
+        assetNameReqExp: /\.css$g/,
+        cssProcessor: cssnano,
+        cssProcessorOptions: { discardComments: {removeAll: true } },
+        canPrint: true
+    })
+  ]
 }
