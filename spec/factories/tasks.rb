@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :task do
-    contact "John"
-    status rand(0..2)
+    content "テストTODO"
+    status 1
   end
 end
