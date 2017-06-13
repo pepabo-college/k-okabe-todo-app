@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 export default class Task extends React.Component {
   constructor(){
@@ -10,19 +11,22 @@ export default class Task extends React.Component {
     e.preventDefault();
     this.props.onTaskDelete({id: this.props.id});
   }
-  // Todo削除
+  // Todo更新
   handleUpdate(e) {
     e.preventDefault();
     this.props.onTaskUpdate({task: {id: this.props.id, status: e.target.value}});
   }
 
-  //stateによってどっちを出すか分岐させる
   handleDoubleClick(e) {
     e.preventDefault();
     this.setState({isEditable:true});
   }
-  //コンテンツを表示するメソッド
-  //更新用のFormが出るメソッド
+
+  handleTaskContentUpdate(e) {
+    e.preventDefault();
+    this.props.onTaskUpdate({task: {id: this.props.id, content: e.target.value}});
+    this.state = ({isEditable:false});
+  }
 
   render() {
     return (
@@ -30,7 +34,9 @@ export default class Task extends React.Component {
         {(() => {
           return this.state.isEditable ?
           <td>
-            <input type="text" defaultValue={this.props.content} onBlur={this.handleUpdate.bind(this)}>
+            <input type="text"
+              defaultValue={this.props.content}
+              onBlur={this.handleTaskContentUpdate.bind(this)}>
             </input>
           </td> :
           <td onDoubleClick = {this.handleDoubleClick.bind(this)} >
