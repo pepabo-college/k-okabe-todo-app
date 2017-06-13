@@ -28,13 +28,14 @@ export default class Task extends React.Component {
     this.state = ({isEditable:false});
   }
 
-  handleKeyDownEdit(e){
-      if(e.key == 'Enter'){
-          this.props.onTaskUpdate({task: {id: this.props.id, content: e.target.value}});
-          this.state = ({isEditable:false});
-      }else if(e.key === 'Escape'){
-          this.state = ({isEditable:false});
-      }
+  handleTaskContentSubmit(e){
+    e.preventDefault();
+    if (e.target.editingForm.value=='') {
+      this.state = ({isEditable:false});
+    } else {
+      this.props.onTaskUpdate({task: {id: this.props.id, content: e.target.editingForm.value}});
+      this.state = ({isEditable:false});
+    }
   }
 
   componentDidUpdate() {
@@ -48,12 +49,14 @@ export default class Task extends React.Component {
         {(() => {
           return this.state.isEditable ?
           <td>
-            <input type="text"
-              defaultValue={this.props.content}
-              onBlur={this.handleTaskContentUpdate.bind(this)}
-              onKeyDown={this.handleKeyDownEdit.bind(this)}
-              ref="editing" >
-            </input>
+            <form onSubmit={this.handleTaskContentSubmit.bind(this)}>
+              <input type="text"
+                name="editingForm"
+                defaultValue={this.props.content}
+                onBlur={this.handleTaskContentUpdate.bind(this)}
+                ref="editing" >
+              </input>
+            </form>
           </td> :
           <td onDoubleClick = {this.handleDoubleClick.bind(this)} >
             {this.props.content}
