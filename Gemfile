@@ -41,6 +41,10 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
+  gem "faker"
+  gem "database_cleaner"
+  gem "launchy"
+  gem "rails-controller-testing", require: false
 end
 
 group :development do
