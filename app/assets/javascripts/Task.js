@@ -22,7 +22,7 @@ export default class Task extends React.Component {
     this.setState({isEditable:true});
   }
 
-  handleTaskContentUpdate(e) {
+  handleTaskContentBlur(e) {
     e.preventDefault();
     this.props.onTaskUpdate({task: {id: this.props.id, content: e.target.value}});
     this.state = ({isEditable:false});
@@ -53,7 +53,7 @@ export default class Task extends React.Component {
               <input type="text"
                 name="editingForm"
                 defaultValue={this.props.content}
-                onBlur={this.handleTaskContentUpdate.bind(this)}
+                onBlur={this.handleTaskContentBlur.bind(this)}
                 ref="editing" >
               </input>
             </form>
