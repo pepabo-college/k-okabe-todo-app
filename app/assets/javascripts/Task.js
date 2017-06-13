@@ -12,7 +12,7 @@ export default class Task extends React.Component {
     this.props.onTaskDelete({id: this.props.id});
   }
   // Todo更新
-  handleUpdate(e) {
+  handleTaskStatusUpdate(e) {
     e.preventDefault();
     this.props.onTaskUpdate({task: {id: this.props.id, status: e.target.value}});
   }
@@ -63,7 +63,7 @@ export default class Task extends React.Component {
           </td>;
         })()}
         <td>
-          <select defaultValue={this.props.status} onChange={this.handleUpdate.bind(this)}>
+          <select defaultValue={this.props.status} onChange={this.handleTaskStatusUpdate.bind(this)}>
             <option value="todo" key="todo">todo</option>
             <option value="doing" key="doing">doing</option>
             <option value="done" key="done">done</option>
