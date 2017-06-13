@@ -24,8 +24,12 @@ export default class Task extends React.Component {
 
   handleTaskContentBlur(e) {
     e.preventDefault();
-    this.props.onTaskUpdate({task: {id: this.props.id, content: e.target.value}});
-    this.state = ({isEditable:false});
+    if (e.target.value=='') {
+      this.state = ({isEditable:false});
+    } else {
+      this.props.onTaskUpdate({task: {id: this.props.id, content: e.target.value}});
+      this.state = ({isEditable:false});
+    }
   }
 
   handleTaskContentSubmit(e){
