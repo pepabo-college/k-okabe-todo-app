@@ -44,7 +44,7 @@ group :development, :test do
   gem "faker"
   gem "database_cleaner"
   gem "launchy"
-  gem "rails-controller-testing", require: false
+  gem "rails-controller-testing"
 end
 
 group :development do
