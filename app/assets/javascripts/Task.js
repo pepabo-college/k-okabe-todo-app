@@ -28,6 +28,20 @@ export default class Task extends React.Component {
     this.state = ({isEditable:false});
   }
 
+  handleKeyDownEdit(e){
+      if(e.key == 'Enter'){
+          this.props.onTaskUpdate({task: {id: this.props.id, content: e.target.value}});
+          this.state = ({isEditable:false});
+      }else if(e.key === 'Escape'){
+          this.state = ({isEditable:false});
+      }
+  }
+
+  componentDidUpdate() {
+    let editing = ReactDOM.findDOMNode(this.refs.editing);
+    editing && editing.focus();
+  }
+
   render() {
     return (
       <tr key={this.props.id}>
@@ -36,7 +50,9 @@ export default class Task extends React.Component {
           <td>
             <input type="text"
               defaultValue={this.props.content}
-              onBlur={this.handleTaskContentUpdate.bind(this)}>
+              onBlur={this.handleTaskContentUpdate.bind(this)}
+              onKeyDown={this.handleKeyDownEdit.bind(this)}
+              ref="editing" >
             </input>
           </td> :
           <td onDoubleClick = {this.handleDoubleClick.bind(this)} >
