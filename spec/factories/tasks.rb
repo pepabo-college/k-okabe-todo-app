@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :task do
-    content "テストTODO"
-    status 1
+    sequence(:content){|n| "#{n}:テストTODO"}
+    status [*0..2].sample
   end
 end
