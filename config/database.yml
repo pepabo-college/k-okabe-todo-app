@@ -14,7 +14,7 @@ development:
   database: k-okabe-todo-app_development
   username: okabe
   password: Okb_college_db01
-  host: 192.168.50.31
+  host: 192.168.51.31
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 # Warning: The database defined as "test" will be erased and
