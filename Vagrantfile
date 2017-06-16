@@ -4,9 +4,9 @@ Vagrant.configure(2) do |config|
 
   config.vm.define :app01 do |c|
     c.vm.hostname = "app01"
-    c.vm.network "private_network", ip:"192.168.50.21"
+    c.vm.network "private_network", ip:"192.168.51.21", virtualbox__intnet: "internal_net"
     c.vm.synced_folder "./",
-    "/var/www/todo", nfs:true
+    "/var/www/todo"
     c.vm.provider :virtualbox do |vbox|
       vbox.customize ["modifyvm", :id, "--memory", 512]
       vbox.customize ["modifyvm", :id, "--cpus", 2]
@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define :db01 do |c|
     c.vm.hostname = "db01"
-    c.vm.network "private_network", ip:"192.168.50.31"
+    c.vm.network "private_network", ip:"192.168.51.31", virtualbox__intnet: "internal_net"
     c.vm.provider :virtualbox do |vbox|
       vbox.customize ["modifyvm", :id, "--memory", 1024]
       vbox.customize ["modifyvm", :id, "--cpus", 2]
@@ -61,13 +61,13 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  config.vm.define :lb02 do |c|
-    c.vm.hostname = "lb01"
-    c.vm.network "private_network", ip:"192.168.50.42"
-    c.vm.provider :virtualbox do |vbox|
-      vbox.customize ["modifyvm", :id, "--memory", 256]
-      vbox.customize ["modifyvm", :id, "--cpus", 1]
-    end
-  end
+  # config.vm.define :lb02 do |c|
+  #   c.vm.hostname = "lb01"
+  #   c.vm.network "private_network", ip:"192.168.50.42"
+  #   c.vm.provider :virtualbox do |vbox|
+  #     vbox.customize ["modifyvm", :id, "--memory", 256]
+  #     vbox.customize ["modifyvm", :id, "--cpus", 1]
+  #   end
+  # end
 
 end
