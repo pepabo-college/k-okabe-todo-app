@@ -70,4 +70,13 @@ Vagrant.configure(2) do |config|
   #   end
   # end
 
+  config.vm.define :surveillance do |c|
+    c.vm.hostname = "surveillance"
+    c.vm.network "private_network", ip:"192.168.50.51"
+    c.vm.provider :virtualbox do |vbox|
+      vbox.customize ["modifyvm", :id, "--memory", 256]
+      vbox.customize ["modifyvm", :id, "--cpus", 1]
+    end
+  end
+
 end
