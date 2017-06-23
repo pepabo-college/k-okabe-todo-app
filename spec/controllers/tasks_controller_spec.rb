@@ -78,4 +78,36 @@ describe TasksController do
     end
   end
 
+  describe 'POST #create' do
+    context '有効な属性の場合' do
+      it 'データベースに新しいタスクを保存' do
+        expect{
+          process :create, method: :post,
+            params: { task: attributes_for(:new_task) }
+        }.to change(Task, :count).by(1)
+      end
+
+      it "indexテンプレートにリダイレクト" do
+        process :create, method: :post,
+          params: { task: attributes_for(:new_task) }
+        expect(response).to redirect_to task_path(assigns[:task])
+      end
+    end
+
+    context '無効な属性の場合' do
+      it 'データベースに新しいタスクを保存しない' do
+        expect{
+          process :create, method: :post,
+            params: { task: attributes_for(:invalid_task) }
+        }.not_to change(Task, :count)
+      end
+
+      it 'newテンプレートを再表示する' do
+        process :create, method: :post,
+          params: { task: attributes_for(:invalid_task) }
+        expect(response).to render_template :new
+      end
+    end
+  end
+
 end
