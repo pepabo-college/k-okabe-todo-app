@@ -122,4 +122,71 @@ describe TasksController do
     end
   end
 
+  describe 'PATCH #update' do
+    before :each do
+      @task = create(:task,
+        content: '99:テストTODO',
+        status: 1
+      )
+    end
+
+    context '有効な属性の場合' do
+      it '要求された@taskを取得する' do
+        process :update, method: :patch,
+          params: { id: @task.id, task: attributes_for(:task_params) }
+        expect(assigns(:task)).to eq(@task)
+      end
+
+      it '@taskの属性を変更する' do
+        process :update, method: :patch,
+          params: {
+            id: @task.id,
+            task: attributes_for(:task_params, content: '100:テストTODO', status: 'done') }
+        @task.reload
+        expect(@task.content).to eq '100:テストTODO'
+        expect(@task.status).to eq 'done'
+      end
+
+      it 'リクエストは302 リダイレクトとなること' do
+        process :update, method: :patch,
+          params: { id: @task.id, task: attributes_for(:task_params) }
+        expect(response.status).to eq 302
+      end
+
+      it 'showページにリダイレクト' do
+        process :update, method: :patch,
+          params: { id: @task.id, task: attributes_for(:task_params) }
+        expect(response).to redirect_to task_path(assigns[:task])
+      end
+    end
+
+    context '無効な属性の場合' do
+      it 'ユーザーの属性を変更しない' do
+        process :update, method: :patch,
+          params: {
+            id: @task.id,
+            task: attributes_for(:invalid_task_params) }
+        @task.reload
+        expect(@task.content).not_to eq nil
+        expect(@task.content).to eq '99:テストTODO'
+      end
+
+      it 'リクエストは200 OKになること' do
+        process :update, method: :patch,
+          params: {
+            id: @task.id,
+            task: attributes_for(:invalid_task_params) }
+        expect(response.status).to eq 200
+      end
+
+      it 'editテンプレートを再表示する' do
+        process :update, method: :patch,
+          params: {
+            id: @task.id,
+            task: attributes_for(:invalid_task_params) }
+        expect(response).to render_template :edit
+      end
+    end
+  end
+
 end
