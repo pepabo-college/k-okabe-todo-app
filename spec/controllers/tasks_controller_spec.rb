@@ -10,12 +10,12 @@ describe TasksController do
       expect(assigns(:task)).to eq task
     end
 
-    it 'リクエストは200 OKとなること'  do
+    it 'リクエストは200 OKとなること' do
       get :show, params: {id: task.id}
       expect(response.status).to eq 200
     end
 
-    it "show.html.erbテンプレートが表示されること" do
+    it "showテンプレートが表示されること" do
       get :show, params: {id: task.id}
       expect(response).to render_template :show
     end
@@ -30,12 +30,12 @@ describe TasksController do
       expect(assigns(:tasks)).to match_array([task1, task2])
     end
 
-    it 'リクエストは200 OKとなること'  do
+    it 'リクエストは200 OKとなること' do
       get :index
       expect(response.status).to eq 200
     end
 
-    it "index.html.erbテンプレートが表示されること" do
+    it "indexテンプレートが表示されること" do
       get :index
       expect(response).to render_template :index
     end
@@ -53,7 +53,7 @@ describe TasksController do
       expect(response.status).to eq 200
     end
 
-    it "new.html.erbテンプレートが表示されること" do
+    it "newテンプレートが表示されること" do
       get :new
       expect(response).to render_template :new
     end
@@ -72,7 +72,7 @@ describe TasksController do
       expect(response.status).to eq 200
     end
 
-    it "edit.html.erbテンプレートが表示されること" do
+    it "editテンプレートが表示されること" do
       get :edit, params: {id: task.id}
       expect(response).to render_template :edit
     end
