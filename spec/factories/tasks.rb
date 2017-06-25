@@ -3,8 +3,8 @@ FactoryGirl.define do
     sequence(:content){|n| "#{n}:テストTODO"}
     status [*0..2].sample
 
-    factory :new_task do
-      status { ['todo', 'doing', 'done'].sample }
+    factory :task_params do
+      status ['todo', 'doing', 'done'].sample
     end
 
     factory :invalid_task do

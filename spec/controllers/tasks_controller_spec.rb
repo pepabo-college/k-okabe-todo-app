@@ -83,13 +83,13 @@ describe TasksController do
       it 'データベースに新しいタスクを保存' do
         expect{
           process :create, method: :post,
-            params: { task: attributes_for(:new_task) }
+            params: { task: attributes_for(:task_params) }
         }.to change(Task, :count).by(1)
       end
 
       it "indexテンプレートにリダイレクト" do
         process :create, method: :post,
-          params: { task: attributes_for(:new_task) }
+          params: { task: attributes_for(:task_params) }
         expect(response).to redirect_to task_path(assigns[:task])
       end
     end
