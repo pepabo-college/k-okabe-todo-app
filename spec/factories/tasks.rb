@@ -7,9 +7,9 @@ FactoryGirl.define do
       status ['todo', 'doing', 'done'].sample
     end
 
-    factory :invalid_task do
+    factory :invalid_task_params do
       content nil
-      status { ['todo', 'doing', 'done'].sample }
+      status ['todo', 'doing', 'done'].sample
     end
 
   end

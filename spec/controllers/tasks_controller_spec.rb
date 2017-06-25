@@ -98,13 +98,13 @@ describe TasksController do
       it 'データベースに新しいタスクを保存しない' do
         expect{
           process :create, method: :post,
-            params: { task: attributes_for(:invalid_task) }
+            params: { task: attributes_for(:invalid_task_params) }
         }.not_to change(Task, :count)
       end
 
       it 'newテンプレートを再表示する' do
         process :create, method: :post,
-          params: { task: attributes_for(:invalid_task) }
+          params: { task: attributes_for(:invalid_task_params) }
         expect(response).to render_template :new
       end
     end
