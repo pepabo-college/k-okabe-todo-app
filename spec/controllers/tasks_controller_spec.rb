@@ -189,4 +189,26 @@ describe TasksController do
     end
   end
 
+  describe 'DELETE #destroy' do
+    before :each do
+      @task = create(:task)
+    end
+
+    it 'タスクを削除する' do
+      expect{
+        process :destroy, method: :delete, params: { id: @task.id }
+      }.to change(Task, :count).by(-1)
+    end
+
+    it 'リクエスト302 リダイレクトになること' do
+      process :destroy, method: :delete, params: { id: @task.id }
+      expect(response.status).to eq 302
+    end
+
+    it 'indexページにリダイレクト' do
+      process :destroy, method: :delete, params: { id: @task.id }
+      expect(response).to redirect_to tasks_path
+    end
+  end
+
 end
