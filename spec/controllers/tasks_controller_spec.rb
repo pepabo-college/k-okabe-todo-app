@@ -87,7 +87,7 @@ describe TasksController do
         }.to change(Task, :count).by(1)
       end
 
-      it "indexテンプレートにリダイレクト" do
+      it "showページにリダイレクト" do
         process :create, method: :post,
           params: { task: attributes_for(:task_params) }
         expect(response).to redirect_to task_path(assigns[:task])
