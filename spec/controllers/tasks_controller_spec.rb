@@ -87,6 +87,12 @@ describe TasksController do
         }.to change(Task, :count).by(1)
       end
 
+      it 'リクエストは302 リダイレクトとなること' do
+        process :create, method: :post,
+          params: { task: attributes_for(:task_params) }
+        expect(response.status).to eq 302
+      end
+
       it "showページにリダイレクト" do
         process :create, method: :post,
           params: { task: attributes_for(:task_params) }
@@ -100,6 +106,12 @@ describe TasksController do
           process :create, method: :post,
             params: { task: attributes_for(:invalid_task_params) }
         }.not_to change(Task, :count)
+      end
+
+      it 'リクエストは200 OKとなること' do
+        process :create, method: :post,
+          params: { task: attributes_for(:invalid_task_params) }
+        expect(response.status).to eq 200
       end
 
       it 'newテンプレートを再表示する' do
